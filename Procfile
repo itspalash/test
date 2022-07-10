@@ -1,1 +1,1 @@
-web: gunicorn paltest.wsgi
+web: gunicorn learndjango.wsgi
