@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello</title>
+</head>
+<body>
+	{% load static %}
+	Hello
+	<img src="static/cat.jpg">
+	<br><br>
+	<form id="pt8fm" method="POST">
+    	{% csrf_token %}
+  	{% for field in form_a %}
+      
+  	{{ field }}
+
+  	
+  	{% endfor %}
+
+    <button type="submit" id="pt8bt"><b>Get Started</b> <i style="" class="fa fa-bell"></i></button>
+
+  </form>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" 
+            crossorigin="anonymous"></script>
+  
+<script>
+    const form = document.getElementById('pt8fm');
+    form.addEventListener("submit", submitHandler);
+
+    function submitHandler(e) {
+    	console.log("working")
+        e.preventDefault();
+        $.ajax({
+            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+            data        : $('#pt8fm').serialize(), // our form data
+            dataType    : 'json',
+            url         : '{% url "login_function" %}', // the url where we want to POST
+            
+            success     : successFunction
+        });
+    }
+
+    function successFunction(msg) {
+        if (msg.coins == "4") {
+            alert(msg.email);
+            form.reset()
+        }
+    }
+</script>
+</body>
+</html>
